@@ -3,7 +3,7 @@ const kataSize = 60;
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
-  kata = new Kata(width / 2, height / 2, random(5, 10));
+  kata = new Kata(width / 2, 0, random(5, 10));
   kata.setRandomKata();
   textSize(kataSize);
 }
@@ -26,10 +26,16 @@ function Kata(x, y, speed) {
     fill(0, 250, 45);
     text(this.value, this.x, this.y);
     this.rain();
+    this.setRandomKata();
   };
 
   this.rain = function () {
-    this.y += this.speed;
+    if (this.y >= height) {
+      this.y = 0;
+    } else {
+      this.y += this.speed;
+    }
+    this.y = (this.y >= height) ? 0 : this.y += this.speed;
   };
 }
 
